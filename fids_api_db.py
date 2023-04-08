@@ -31,6 +31,7 @@ for day in range(1, 16):
         'Accept-Encoding': 'gzip, deflate'
     }
     response = requests.get(url,params=param, headers=headers, verify=False)
+    response_text = response.content.decode('utf-8')
     data = json.loads(response.text)
     flights = data['Flights']
     subtotal = 0
@@ -41,6 +42,10 @@ for day in range(1, 16):
         flight_num = item['flight_num']
         airplane = item['airplane_type']
         airline_icao = item['airline_icao']
+        dow = item['dow']
+        status_ = item['status1']
+        status1_ = item['status2']
+        status2_ = item['second_status']
         type_ = item['type_']
         delay_ = 0 if item['delay'] == 'NULL' else item['delay']
         international = 0 if item['international']== "false" else 1
@@ -50,9 +55,9 @@ for day in range(1, 16):
         actual_time = item['actual_time']
         miladi_scheduled = item['miladi_scheduled']
         miladi_actual = item['miladi_actual']
-        vals = [origin,destination,register,flight_num,airplane,airline.upper(),airline_icao,type_,delay_,international,scheduled_date,scheduled_time,actual_date,actual_time,miladi_scheduled,miladi_actual]
-        sql = """ insert into fids (origin,destination,register,flight_num,airplane,airline,airline_icao,type_,delay_,international,scheduled_date,scheduled_time,actual_date,actual_time,miladi_scheduled,miladi_actual)
-                values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); """
+        vals = [origin,destination,register,flight_num,airplane,airline.upper(),airline_icao,dow,status_,status1_,status2_,type_,delay_,international,scheduled_date,scheduled_time,actual_date,actual_time,miladi_scheduled,miladi_actual]
+        sql = """ insert into fids (origin,destination,register,flight_num,airplane,airline,airline_icao,dow,status_,status1_,status2_,type_,delay_,international,scheduled_date,scheduled_time,actual_date,actual_time,miladi_scheduled,miladi_actual)
+                values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); """
         try:
             cursor.execute(sql,vals)
             subtotal += 1
