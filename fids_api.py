@@ -2,7 +2,6 @@ import requests
 import json
 requests.packages.urllib3.disable_warnings()
 
-
 date = '1402-02-14'
 airline = 'irm'
 url = 'https://www.airport.ir/NetForm/Service/fids?'
