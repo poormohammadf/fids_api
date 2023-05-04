@@ -3,7 +3,7 @@ import json
 requests.packages.urllib3.disable_warnings()
 
 
-date = '1402-01-08'
+date = '1402-02-14'
 airline = 'irm'
 url = 'https://www.airport.ir/NetForm/Service/fids?'
 result = url+'date={}&airline={}&AUTH_TOKEN=7012367'.format(date,airline)
